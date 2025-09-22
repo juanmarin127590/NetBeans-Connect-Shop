@@ -52,7 +52,7 @@ public class LoginServlet extends HttpServlet {
                 // Usuario encontrado, ahora verificamos la contraseña
                 String storedPassword = rs.getString("password");
                 
-                // --- ¡IMPORTANTE! Ver explicación académica sobre seguridad ---
+                // --- ¡IMPORTANTE! Seguridad en Contraseñas: Implementar(usando jBCrypt) preferiblemente: ---
                 if (password.equals(storedPassword)) {
                     // Contraseña correcta: Autenticación exitosa
                     

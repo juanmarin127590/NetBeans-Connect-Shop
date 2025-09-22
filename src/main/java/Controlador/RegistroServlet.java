@@ -30,7 +30,7 @@ public class RegistroServlet extends HttpServlet {
         String nombre = request.getParameter("nombre");
         String apellidos = request.getParameter("apellidos");
         String email = request.getParameter("email");
-        String password = request.getParameter("password"); // ¡Ver nota de seguridad en la explicación académica!
+        String password = request.getParameter("password");
         String telefono = request.getParameter("telefono");
 
         // 2. Lógica para conectar e insertar en la Base de Datos
