@@ -1,3 +1,6 @@
-Controlador/RegistroServlet.class
 com/mycompany/connectshop/resources/JakartaEE8Resource.class
+Controlador/RegistroServlet.class
+Controlador/LoginServlet.class
+Controlador/RegistroServletImpl.class
 com/mycompany/connectshop/JakartaRestConfiguration.class
+Controlador/LogoutServlet.class

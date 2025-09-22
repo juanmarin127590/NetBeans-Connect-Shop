@@ -64,23 +64,23 @@ public class LoginServlet extends HttpServlet {
                     session.setAttribute("nombre_usuario", rs.getString("nombre"));
                     
                     // 3. Redirigimos al usuario a una página protegida (su perfil)
-                    response.sendRedirect("perfil.jsp");
+                    response.sendRedirect("vistas/perfil.jsp");
                     
                 } else {
                     // Contraseña incorrecta
                     request.setAttribute("errorMessage", "La contraseña es incorrecta.");
-                    request.getRequestDispatcher("login.jsp").forward(request, response);
+                    request.getRequestDispatcher("vistas/login.jsp").forward(request, response);
                 }
             } else {
                 // Usuario no encontrado
                 request.setAttribute("errorMessage", "No existe un usuario con ese correo electrónico.");
-                request.getRequestDispatcher("login.jsp").forward(request, response);
+                request.getRequestDispatcher("vistas/login.jsp").forward(request, response);
             }
             
         } catch (SQLException ex) {
             ex.printStackTrace();
             request.setAttribute("errorMessage", "Error de conexión a la base de datos.");
-            request.getRequestDispatcher("login.jsp").forward(request, response);
+            request.getRequestDispatcher("vistas/login.jsp").forward(request, response);
         } finally {
             if (conn != null) {
                 try {

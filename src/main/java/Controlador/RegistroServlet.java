@@ -82,6 +82,6 @@ public class RegistroServlet extends HttpServlet {
         request.setAttribute("Message", message);
         
         // Redirigir la petición al JSP que mostrará el resultado
-        getServletContext().getRequestDispatcher("/resultado.jsp").forward(request, response);
+        getServletContext().getRequestDispatcher("/vistas/resultado.jsp").forward(request, response);
     }
 }
