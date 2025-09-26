@@ -30,7 +30,7 @@ public class ProductoDAO {
     
     public boolean crearProducto(Producto producto){
         
-        String sql = "INSERT INTO Prodcutos (id_categoria, sku, nombre, descripcion, precio, stock, activo) VALUE (?, ?, ?, ?, ?, ?, ?,)";
+        String sql = "INSERT INTO Productos (id_categoria, sku, nombre, descripcion, precio, stock, activo) VALUES (?, ?, ?, ?, ?, ?, ?,)";
         
         Connection conn = null;
         PreparedStatement statement = null;

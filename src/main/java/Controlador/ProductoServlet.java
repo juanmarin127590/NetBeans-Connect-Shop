@@ -33,6 +33,8 @@ public class ProductoServlet extends HttpServlet {
         CategoriaDAO categoriaDAO = new CategoriaDAO();
         List<Categoria> listaCategorias = categoriaDAO.obtenerTodas();
         
+        System.out.println("Servlet: Pasando al JSP " + listaCategorias.size() + " categorías.");
+        
         // 2. Guardamos la lista en el request para que el JSP pueda usarla
         request.setAttribute("listaCategorias", listaCategorias);
         

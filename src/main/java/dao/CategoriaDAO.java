@@ -21,7 +21,7 @@ public class CategoriaDAO {
     private final String dbURL = "jdbc:mysql://localhost:3306/connect_shop";
     private final String dbUser = "root";
     private final String dbPassword = "";
-    
+       
     /**
      * Obtiene una lista de todas las categorías de la base de datos.
      * @return Una lista de objetos Categoria.
@@ -36,18 +36,20 @@ public class CategoriaDAO {
              PreparedStatement statement = conn.prepareStatement(sql);
              ResultSet rs = statement.executeQuery()) {
             
-            System.out.println("Categorias obtenidas: " + categorias.size());
-
             
             while (rs.next()) {
                 int id = rs.getInt("id_categoria");
                 String nombre = rs.getString("nombre");
                 categorias.add(new Categoria(id, nombre));
             }
+           
             
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
+        
+         System.out.println("Categorias obtenidas: " + categorias.size());
+        
         return categorias;
         
     }

@@ -6,7 +6,7 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%-- Importamos la librería JSTL Core para usar bucles y condicionales --%>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -50,6 +50,15 @@
             </div>
             <div class="form-group">
                 <label for="categoria">Categoría:</label>
+                
+                <c:if test="${empty listaCategorias}">
+                    <p style="color:red;">⚠️ La lista de categorías está vacía o no llegó desde el Servlet.</p>
+                </c:if>
+
+                <c:if test="${not empty listaCategorias}">
+                    <p style="color:green;">Se recibieron ${listaCategorias.size()} categorías.</p>
+                </c:if>
+                
                 <select id="categoria" name="id_categoria" required>
                     <option value="">-- Seleccione una categoría --</option>
                     <%-- JSTL itera sobre la lista de categorías que nos envió el Servlet --%>
