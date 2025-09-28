@@ -29,17 +29,21 @@ public class ProductoServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        // 1. Obtenemos las categorías de la BD
-        CategoriaDAO categoriaDAO = new CategoriaDAO();
-        List<Categoria> listaCategorias = categoriaDAO.obtenerTodas();
+        // Leemos el parámetro 'accion' de la URL
+        String accion = request.getParameter("accion");
+        if (accion == null) {
+            accion = "listar"; // Acción por defecto
+        }
         
-        System.out.println("Servlet: Pasando al JSP " + listaCategorias.size() + " categorías.");
-        
-        // 2. Guardamos la lista en el request para que el JSP pueda usarla
-        request.setAttribute("listaCategorias", listaCategorias);
-        
-        // 3. Redirigimos (forward) al JSP para que muestre el formulario
-        request.getRequestDispatcher("vistas/agregarProducto.jsp").forward(request, response);
+        switch (accion) {
+            case "mostrarFormulario":
+                mostrarFormulario(request, response);
+                break;
+            case "listar":
+            default:
+                listarProductos(request, response);
+                break;
+        } 
     }
 
     // Se ejecutará cuando el formulario haga SUBMIT
@@ -64,13 +68,44 @@ public class ProductoServlet extends HttpServlet {
 
         // 4. Redirigimos a una página de éxito o de listado de productos
         if (exito) {
-            // Por ahora, redirigimos a una página simple de éxito.
-            // Más adelante, aquí iría la página que lista los productos del vendedor.
+           // ¡Mejora! Redirigimos a la lista de productos para ver el nuevo item añadido.
             response.sendRedirect("exito.jsp"); 
         } else {
-            // Manejar el caso de error (ej. redirigir a una página de error)
+            // Manejar el caso de error
             response.sendRedirect("error.jsp");
         }
     }
+    
+    private void listarProductos(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        // 1. Obtenemos las categorías de la BD
+        ProductoDAO productoDAO = new ProductoDAO();
+        List<Producto> listaProducto = productoDAO.obtenerTodos();
+        
+         System.out.println("Servlet: Pasando al JSP " + listaProducto.size() + " Productos.");
+
+        // 2. Guardamos la lista en el request para que el JSP pueda usarla
+        request.setAttribute("listaProducto", listaProducto);
+
+        // 3. Redirigimos (forward) al JSP para que muestre el formulario
+        request.getRequestDispatcher("vistas/misProductos.jsp").forward(request, response);
+    }
+
+    private void mostrarFormulario(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        // 1. Obtenemos las categorías de la BD
+        CategoriaDAO categoriaDAO = new CategoriaDAO();
+        List<Categoria> listaCategorias = categoriaDAO.obtenerTodas();
+
+        System.out.println("Servlet: Pasando al JSP " + listaCategorias.size() + " categorías.");
+
+        // 2. Guardamos la lista en el request para que el JSP pueda usarla
+        request.setAttribute("listaCategorias", listaCategorias);
+
+        // 3. Redirigimos (forward) al JSP para que muestre el formulario
+        request.getRequestDispatcher("vistas/agregarProducto.jsp").forward(request, response);
+
+    }
+    
 
 }

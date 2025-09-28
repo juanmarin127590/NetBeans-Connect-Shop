@@ -4,18 +4,21 @@
  */
 package dao;
 
-import jakarta.servlet.annotation.WebServlet;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import modelo.Producto;
+import java.sql.ResultSet;
 
 /**
  *
  * @author jmmacbook
  */
-@WebServlet(name = "ProductoDAO", urlPatterns = {"/ProductoDAO"})
+
 public class ProductoDAO {
     
     private final String dbURL = "jdbc:mysql://localhost:3306/connect_shop";
@@ -30,7 +33,7 @@ public class ProductoDAO {
     
     public boolean crearProducto(Producto producto){
         
-        String sql = "INSERT INTO Productos (id_categoria, sku, nombre, descripcion, precio, stock, activo) VALUES (?, ?, ?, ?, ?, ?, ?,)";
+        String sql = "INSERT INTO Productos (id_categoria, sku, nombre, descripcion, precio, stock, activo) VALUES (?, ?, ?, ?, ?, ?, ?)";
         
         Connection conn = null;
         PreparedStatement statement = null;
@@ -72,5 +75,42 @@ public class ProductoDAO {
         
         return guardadoExitosamente;
     }
+    
+    /**
+     * Obtiene una lista de todos los productos de la base de datos.
+     *
+     * @return Una lista de objetos Producto.
+     */
+    public List<Producto> obtenerTodos() {
+        List<Producto> productos = new ArrayList<>();
+        String sql = "SELECT * FROM Productos ORDER BY nombre";
+
+        try (Connection conn = DriverManager.getConnection(dbURL, dbUser, dbPassword); 
+                PreparedStatement statement = conn.prepareStatement(sql); 
+                ResultSet rs = statement.executeQuery()) {
+
+            // Iteramos sobre cada fila que devuelve la consulta
+            while (rs.next()) {
+                // Creamos un objeto Producto por cada fila
+                Producto producto = new Producto();
+                producto.setId(rs.getLong("id_producto"));
+                producto.setIdCategoria(rs.getInt("id_categoria"));
+                producto.setSku(rs.getString("sku"));
+                producto.setNombre(rs.getString("nombre"));
+                producto.setDescripcion(rs.getString("descripcion"));
+                producto.setPrecio(rs.getBigDecimal("precio"));
+                producto.setStock(rs.getInt("stock"));
+                producto.setActivo(rs.getBoolean("activo"));
+
+                // Añadimos el objeto a nuestra lista
+                productos.add(producto);
+            }
+        } catch (SQLException ex) {
+        }
+
+        System.out.println("DAO: Número de productos leídos: " + productos.size());
+        return productos;
+    }
+
 
 }

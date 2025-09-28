@@ -1,4 +1,3 @@
-dao/producto.class
 Controlador/ProductoServlet.class
 com/mycompany/connectshop/resources/JakartaEE8Resource.class
 modelo/Producto.class

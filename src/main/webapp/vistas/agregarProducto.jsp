@@ -32,9 +32,6 @@
     <div class="container">
         <h2>Añadir Nuevo Producto</h2>
         
-        <p>Lista cargada: ${listaCategorias.size()} categorías</p>
-
-        
         <form action="${pageContext.request.contextPath}/ProductoServlet" method="post">
             <div class="form-group">
                 <label for="nombre">Nombre del Producto:</label>
@@ -53,10 +50,6 @@
                 
                 <c:if test="${empty listaCategorias}">
                     <p style="color:red;">⚠️ La lista de categorías está vacía o no llegó desde el Servlet.</p>
-                </c:if>
-
-                <c:if test="${not empty listaCategorias}">
-                    <p style="color:green;">Se recibieron ${listaCategorias.size()} categorías.</p>
                 </c:if>
                 
                 <select id="categoria" name="id_categoria" required>
